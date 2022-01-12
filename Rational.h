@@ -88,10 +88,18 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& out, const Rational& num) {
-   return out << num.numerator << '/' << num.denumerator;
+    if (num.denumerator == 1)
+        out << num.numerator;
+    else
+        out << num.numerator << '/' << num.denumerator;
+    return out;
 }
 
 std::istream& operator>>(std::istream& in, Rational& num) {
-    return in >> num.numerator >> num.denumerator;
+    if (num.denumerator == 1)
+        in >> num.numerator;
+    else
+        in >> num.numerator >> num.denumerator;
+    return in;
 }
 
