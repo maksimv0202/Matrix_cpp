@@ -54,17 +54,29 @@ public:
         return *this /= rhs;
     }
 
-    inline bool operator==(const Rational& rhs);
+    inline bool operator==(const Rational& rhs) {
+        return this->numerator * rhs.denumerator == this->numerator * rhs.denumerator;
+    }
 
-    inline bool operator!=(const Rational& rhs);
+    inline bool operator!=(const Rational& rhs) {
+        return !(*this == rhs);
+    }
 
-    inline bool operator<(const Rational& rhs);
+    inline bool operator<(const Rational& rhs) {
+        return this->numerator * rhs.denumerator < this->denumerator * rhs.numerator;
+    }
 
-    inline bool operator>(const Rational& rhs);
+    inline bool operator>(const Rational& rhs) {
+        return this->numerator * rhs.denumerator > this->denumerator * rhs.numerator;
+    }
 
-    inline bool operator<=(const Rational& rhs);
+    inline bool operator<=(const Rational& rhs) {
+        return !(*this > rhs);
+    }
 
-    inline bool operator>=(const Rational& rhs);
+    inline bool operator>=(const Rational& rhs) {
+        return !(*this < rhs);
+    }
 
     friend std::ostream& operator<<(std::ostream& out, const Rational& num);
 
