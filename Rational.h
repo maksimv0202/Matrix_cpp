@@ -9,6 +9,8 @@ public:
 
     Rational(int num, int denum): numerator(num), denumerator(denum) {} 
 
+    Rational(int num): numerator(num), denumerator(1) {}
+
     Rational operator=(const Rational& rhs) {
         this->numerator     = rhs.numerator;
         this->denumerator   = rhs.denumerator;
