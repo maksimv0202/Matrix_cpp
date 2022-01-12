@@ -11,49 +11,69 @@ public:
 
     Rational(int num): numerator(num), denumerator(1) {}
 
-    Rational operator=(const Rational& rhs) {
+    Rational& operator=(const Rational& rhs) {
         this->numerator     = rhs.numerator;
         this->denumerator   = rhs.denumerator;
     }
 
-    Rational operator+=(const Rational& rhs) {
+    Rational& operator+=(const Rational& rhs) {
         this->numerator     = this->numerator * rhs.denumerator + this->denumerator * rhs.numerator;
         this->denumerator  *= rhs.denumerator;
         return *this;
     }
 
-    Rational operator-=(const Rational& rhs) {
+    Rational& operator-=(const Rational& rhs) {
         this->numerator     = this->numerator * rhs.denumerator - this->denumerator * rhs.numerator;
         this->denumerator  *= rhs.denumerator;
         return *this;
     }
 
-    Rational operator*=(const Rational& rhs) {
+    Rational& operator*=(const Rational& rhs) {
         this->numerator     *= rhs.numerator;
         this->denumerator   *= rhs.denumerator;
         return *this;
     }
 
-    Rational operator/=(const Rational& rhs) {
+    Rational& operator/=(const Rational& rhs) {
         this->numerator     *= rhs.denumerator;
         this->denumerator   *= rhs.numerator;
         return *this;
     }
 
-    Rational operator+(const Rational& rhs) {
+    Rational& operator+(const Rational& rhs) {
         return *this += rhs;
     }
 
-    Rational operator-(const Rational& rhs) {
+    Rational& operator-(const Rational& rhs) {
         return *this -= rhs;
     }
 
-    Rational operator*(const Rational& rhs) {
+    Rational& operator*(const Rational& rhs) {
         return *this *= rhs;
     }
 
-    Rational operator/(const Rational& rhs) {
+    Rational& operator/(const Rational& rhs) {
         return *this /= rhs;
+    }
+    
+    Rational& operator++() {
+        return *this += 1;
+    }
+
+    Rational operator++(int) {
+        Rational old = *this;
+        ++(*this);
+        return old;
+    }
+
+    Rational& operator--() {
+        return *this -= 1;
+    }
+
+    Rational operator--(int) {
+        Rational old = *this;
+        --(*this);
+        return old;
     }
 
     inline bool operator==(const Rational& rhs) {
