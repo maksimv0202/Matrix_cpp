@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 
 class Rational {
@@ -11,49 +13,68 @@ public:
 
     Rational(int num): numerator(num), denumerator(1) {}
 
+    Rational(const Rational& rhs): numerator(rhs.numerator), denumerator(rhs.denumerator) {}
+
+    Rational(Rational&& rhs) noexcept: numerator(std::move(numerator)), denumerator(std::move(denumerator)) {}
+
     Rational& operator=(const Rational& rhs) {
-        this->numerator     = rhs.numerator;
-        this->denumerator   = rhs.denumerator;
+        numerator       = rhs.numerator;
+        denumerator     = rhs.denumerator;
+        return *this;
+    }
+    
+    Rational& operator=(Rational&& rhs) noexcept {
+        numerator       = std::move(rhs.numerator);
+        denumerator     = std::move(rhs.denumerator);
+        return *this;
     }
 
     Rational& operator+=(const Rational& rhs) {
-        this->numerator     = this->numerator * rhs.denumerator + this->denumerator * rhs.numerator;
-        this->denumerator  *= rhs.denumerator;
+        numerator       = numerator * rhs.denumerator + denumerator * rhs.numerator;
+        denumerator    *= rhs.denumerator;
         return *this;
     }
 
     Rational& operator-=(const Rational& rhs) {
-        this->numerator     = this->numerator * rhs.denumerator - this->denumerator * rhs.numerator;
-        this->denumerator  *= rhs.denumerator;
+        numerator       = numerator * rhs.denumerator - denumerator * rhs.numerator;
+        denumerator    *= rhs.denumerator;
         return *this;
     }
 
     Rational& operator*=(const Rational& rhs) {
-        this->numerator     *= rhs.numerator;
-        this->denumerator   *= rhs.denumerator;
+        numerator     *= rhs.numerator;
+        denumerator   *= rhs.denumerator;
         return *this;
     }
 
     Rational& operator/=(const Rational& rhs) {
-        this->numerator     *= rhs.denumerator;
-        this->denumerator   *= rhs.numerator;
+        numerator     *= rhs.denumerator;
+        denumerator   *= rhs.numerator;
         return *this;
     }
 
-    Rational& operator+(const Rational& rhs) {
-        return *this += rhs;
+    Rational operator+(const Rational& rhs) {
+        Rational copy   = *this;
+        copy           += rhs;
+        return copy;
     }
 
-    Rational& operator-(const Rational& rhs) {
-        return *this -= rhs;
+    Rational operator-(const Rational& rhs) {
+        Rational copy   = *this;
+        copy           -= rhs;
+        return copy;
     }
 
-    Rational& operator*(const Rational& rhs) {
-        return *this *= rhs;
+    Rational operator*(const Rational& rhs) {
+        Rational copy   = *this;
+        copy           *= rhs;
+        return copy;
     }
 
-    Rational& operator/(const Rational& rhs) {
-        return *this /= rhs;
+    Rational operator/(const Rational& rhs) {
+        Rational copy   = *this;
+        copy           /= rhs;
+        return copy;
     }
     
     Rational& operator++() {
@@ -61,9 +82,9 @@ public:
     }
 
     Rational operator++(int) {
-        Rational old = *this;
+        Rational copy = *this;
         ++(*this);
-        return old;
+        return copy;
     }
 
     Rational& operator--() {
@@ -71,13 +92,13 @@ public:
     }
 
     Rational operator--(int) {
-        Rational old = *this;
+        Rational copy = *this;
         --(*this);
-        return old;
+        return copy;
     }
 
     inline bool operator==(const Rational& rhs) {
-        return this->numerator * rhs.denumerator == this->numerator * rhs.denumerator;
+        return numerator * rhs.denumerator == numerator * rhs.denumerator;
     }
 
     inline bool operator!=(const Rational& rhs) {
@@ -85,11 +106,11 @@ public:
     }
 
     inline bool operator<(const Rational& rhs) {
-        return this->numerator * rhs.denumerator < this->denumerator * rhs.numerator;
+        return numerator * rhs.denumerator < denumerator * rhs.numerator;
     }
 
     inline bool operator>(const Rational& rhs) {
-        return this->numerator * rhs.denumerator > this->denumerator * rhs.numerator;
+        return numerator * rhs.denumerator > denumerator * rhs.numerator;
     }
 
     inline bool operator<=(const Rational& rhs) {
