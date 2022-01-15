@@ -33,13 +33,11 @@ public:
     }
 
     double abs() noexcept {
-        double abs = sqrt(re * re + im * im);
-        return abs;
+        return sqrt(re * re + im * im);
     }
 
     double abs() const noexcept {
-        const double abs = sqrt(re * re + im * im);
-        return abs;
+        return sqrt(re * re + im * im);
     }
 
     double abs_sqrt() noexcept {
@@ -172,4 +170,3 @@ std::istream& operator>>(std::istream& in, Complex<T>& z) {
     in >> z.re >> z.im;
     return in;
 }
-
