@@ -31,49 +31,49 @@ public:
 
     Rational& operator+=(const Rational& rhs) {
         numerator       = numerator * rhs.denumerator + denumerator * rhs.numerator;
-        denumerator    *= rhs.denumerator;
+        denumerator     *= rhs.denumerator;
         return *this;
     }
 
     Rational& operator-=(const Rational& rhs) {
         numerator       = numerator * rhs.denumerator - denumerator * rhs.numerator;
-        denumerator    *= rhs.denumerator;
+        denumerator     *= rhs.denumerator;
         return *this;
     }
 
     Rational& operator*=(const Rational& rhs) {
-        numerator     *= rhs.numerator;
-        denumerator   *= rhs.denumerator;
+        numerator       *= rhs.numerator;
+        denumerator     *= rhs.denumerator;
         return *this;
     }
 
     Rational& operator/=(const Rational& rhs) {
-        numerator     *= rhs.denumerator;
-        denumerator   *= rhs.numerator;
+        numerator       *= rhs.denumerator;
+        denumerator     *= rhs.numerator;
         return *this;
     }
 
     Rational operator+(const Rational& rhs) {
         Rational copy   = *this;
-        copy           += rhs;
+        copy            += rhs;
         return copy;
     }
 
     Rational operator-(const Rational& rhs) {
         Rational copy   = *this;
-        copy           -= rhs;
+        copy            -= rhs;
         return copy;
     }
 
     Rational operator*(const Rational& rhs) {
         Rational copy   = *this;
-        copy           *= rhs;
+        copy            *= rhs;
         return copy;
     }
 
     Rational operator/(const Rational& rhs) {
         Rational copy   = *this;
-        copy           /= rhs;
+        copy            /= rhs;
         return copy;
     }
     
