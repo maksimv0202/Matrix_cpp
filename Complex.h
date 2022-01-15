@@ -144,13 +144,13 @@ public:
         return !(*this == z);
     }
 
-    inline bool operator<(const Complex<T>& rhs) = delete;
+    bool operator<(const Complex<T>& rhs) = delete;
 
-    inline bool operator>(const Complex<T>& rhs) = delete;
+    bool operator>(const Complex<T>& rhs) = delete;
 
-    inline bool operator<=(const Complex<T>& rhs) = delete;
+    bool operator<=(const Complex<T>& rhs) = delete;
 
-    inline bool operator>=(const Complex<T>& rhs) = delete;
+    bool operator>=(const Complex<T>& rhs) = delete;
     
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Complex<U>& z);
