@@ -2,5 +2,5 @@
 
 #include <iostream>
 
-template <typename M, typename N, typename Alloc = std::allocator<T>>
+template <typename T, size_t M, size_t N, typename Alloc = std::allocator<T>>
 class Matrix;
