@@ -12,90 +12,109 @@ public:
     Rational(int num, int denum): numerator(num), denumerator(denum) {} 
 
     Rational(int num): numerator(num), denumerator(1) {}
-
+    
     Rational(const Rational& rhs): numerator(rhs.numerator), denumerator(rhs.denumerator) {}
 
     Rational(Rational&& rhs) noexcept: numerator(std::move(numerator)), denumerator(std::move(denumerator)) {}
+    
+    int __gcd(int l_gcd, int r_gcd) {
+        int tmp = 0;
+        while (r_gcd) {
+            tmp = l_gcd % r_gcd;
+            l_gcd = r_gcd;
+            r_gcd = tmp;
+        }
+        return abs(l_gcd);
+    }
+
+    Rational& canonical_form() {
+        int gcd     = __gcd(numerator, denumerator);
+        numerator   /= gcd;
+        denumerator /= gcd;
+        return *this;
+    }
 
     Rational& operator=(const Rational& rhs) {
         numerator       = rhs.numerator;
         denumerator     = rhs.denumerator;
-        return *this;
+        return (*this).canonical_form();
     }
     
     Rational& operator=(Rational&& rhs) noexcept {
         numerator       = std::move(rhs.numerator);
         denumerator     = std::move(rhs.denumerator);
-        return *this;
+        return (*this).canonical_form();
     }
 
     Rational& operator+=(const Rational& rhs) {
         numerator       = numerator * rhs.denumerator + denumerator * rhs.numerator;
         denumerator     *= rhs.denumerator;
-        return *this;
+        return (*this).canonical_form();
     }
 
     Rational& operator-=(const Rational& rhs) {
         numerator       = numerator * rhs.denumerator - denumerator * rhs.numerator;
         denumerator     *= rhs.denumerator;
-        return *this;
+        return (*this).canonical_form();
     }
 
     Rational& operator*=(const Rational& rhs) {
         numerator       *= rhs.numerator;
         denumerator     *= rhs.denumerator;
-        return *this;
+        return (*this).canonical_form();
     }
 
     Rational& operator/=(const Rational& rhs) {
         numerator       *= rhs.denumerator;
         denumerator     *= rhs.numerator;
-        return *this;
+        return (*this).canonical_form();
     }
 
     Rational operator+(const Rational& rhs) {
         Rational copy   = *this;
         copy            += rhs;
-        return copy;
+        return copy.canonical_form();
     }
 
     Rational operator-(const Rational& rhs) {
         Rational copy   = *this;
         copy            -= rhs;
-        return copy;
+        return copy.canonical_form();
     }
 
     Rational operator*(const Rational& rhs) {
         Rational copy   = *this;
         copy            *= rhs;
-        return copy;
+        return copy.canonical_form();
     }
 
     Rational operator/(const Rational& rhs) {
         Rational copy   = *this;
         copy            /= rhs;
-        return copy;
+        return copy.canonical_form();
     }
     
     Rational& operator++() {
-        return *this += 1;
+        return (*this += 1).canonical_form();
     }
 
     Rational operator++(int) {
         Rational copy = *this;
         ++(*this);
-        return copy;
+        return copy.canonical_form();
     }
 
     Rational& operator--() {
-        return *this -= 1;
+        return (*this -= 1).canonical_form();
     }
 
     Rational operator--(int) {
         Rational copy = *this;
         --(*this);
-        return copy;
+        return copy.canonical_form();
     }
+    
+    Rational& operator,(const Rational& rhs) = delete;
 
     inline bool operator==(const Rational& rhs) {
         return numerator * rhs.denumerator == numerator * rhs.denumerator;
